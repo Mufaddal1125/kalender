@@ -202,13 +202,12 @@ class AnimatedMultiDayEventsHeader<T> extends StatelessWidget {
             final horizontalStepDuration =
                 viewConfiguration.horizontalStepDuration;
             final multiDayTileHeight = viewConfiguration.multiDayTileHeight;
-
             return AnimatedSize(
               curve: Curves.easeIn,
               duration: const Duration(milliseconds: 200),
               child: SizedBox(
-                height: viewConfiguration.multiDayTileHeight *
-                    (multiDayEventGroup.maxNumberOfStackedEvents +
+                height: (multiDayTileHeight + 12) *
+                    (multiDayEventGroup.events.length +
                         (viewConfiguration.createMultiDayEvents ? 1 : 0)),
                 child: Stack(
                   clipBehavior: Clip.antiAlias,

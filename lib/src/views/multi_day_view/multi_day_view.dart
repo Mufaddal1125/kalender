@@ -123,26 +123,6 @@ class _MultiDayViewState<T> extends State<MultiDayView<T>> {
         final layoutDelegates =
             widget.layoutDelegates ?? CalendarLayoutDelegates<T>();
 
-        final child = CustomMultiChildLayout(
-          delegate: _MultiDayViewLayoutDelegate(),
-          children: [
-            // The content is placed first so that it is behind the header.
-            LayoutId(
-              id: _contentID,
-              child: MultiDayContent<T>(
-                controller: widget.controller,
-                viewConfiguration: widget.multiDayViewConfiguration,
-              ),
-            ),
-            LayoutId(
-              id: _headerID,
-              child: MultiDayHeader<T>(
-                viewConfiguration: widget.multiDayViewConfiguration,
-              ),
-            ),
-          ],
-        );
-
         return CalendarStyleProvider(
           style: widget.style ?? const CalendarStyle(),
           components: widget.components ?? CalendarComponents(),
@@ -158,7 +138,10 @@ class _MultiDayViewState<T> extends State<MultiDayView<T>> {
             ),
             platformData: PlatformData(),
             layoutDelegates: layoutDelegates,
-            child: child,
+            child: MultiDayContent<T>(
+              controller: widget.controller,
+              viewConfiguration: widget.multiDayViewConfiguration,
+            ),
           ),
         );
       },

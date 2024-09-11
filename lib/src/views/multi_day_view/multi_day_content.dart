@@ -5,6 +5,7 @@ import 'package:kalender/src/models/calendar/view_state/multi_day_view_state.dar
 import 'package:kalender/src/models/view_configurations/multi_day_configurations/multi_day_view_configuration.dart';
 import 'package:kalender/src/providers/calendar_scope.dart';
 import 'package:kalender/src/providers/calendar_style.dart';
+import 'package:kalender/src/views/multi_day_view/multi_day_header.dart';
 import 'package:kalender/src/views/multi_day_view/multi_day_page_content.dart';
 
 class MultiDayContent<T> extends StatelessWidget {
@@ -112,30 +113,38 @@ class MultiDayContent<T> extends StatelessWidget {
               return SingleChildScrollView(
                 controller: state.scrollController,
                 physics: value,
-                child: ClipRect(
-                  child: SizedBox(
-                    height: clippedHeight,
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          top: -viewConfiguration.startHour * hourHeight,
-                          left: 0,
-                          right: 0,
-                          child: SizedBox(
-                            height: (viewConfiguration.endHour) * hourHeight,
-                            child: Stack(
-                              fit: StackFit.expand,
-                              children: [
-                                hourLine,
-                                pageView,
-                                timeline,
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                child: Column(
+                  children: [
+                    MultiDayHeader<T>(
+                      viewConfiguration: viewConfiguration,
                     ),
-                  ),
+                    ClipRect(
+                      child: SizedBox(
+                        height: clippedHeight,
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              top: -viewConfiguration.startHour * hourHeight,
+                              left: 0,
+                              right: 0,
+                              child: SizedBox(
+                                height:
+                                    (viewConfiguration.endHour) * hourHeight,
+                                child: Stack(
+                                  fit: StackFit.expand,
+                                  children: [
+                                    hourLine,
+                                    pageView,
+                                    timeline,
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               );
             },
